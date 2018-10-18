@@ -1,3 +1,7 @@
+@ Ben Terry
+@ Programming Assignment 3 - Modify code to produce same results.
+@ 15 October 2018
+
 @Vending machine code
 
     .global main
@@ -34,26 +38,15 @@ main:
     @Your modifications will begin at this point
 
     CMP R1, #1       @Check for "peanuts"
-    BEQ _peanut      @If user entered 1 goto _peanuts
+    moveq r3, #75    @If user entered 1, mov 75 into r3
     CMP R1, #2       @Check for "chocolate"
-    BEQ _choc        @If user entered 2 goto _choc
+    moveq r3, #125   @If user entered 2, mov 125 into r3
     CMP R1, #3       @Check for "pretzels"
-    BEQ _pretzel     @If user entered 3 goto _pretzel
+    moveq r3, #90    @If user entered 3, mov 90 into r3
     LDR R0, =msg7    @If we get here user entered
                      @an illegal selection so print
                      @error message and terminate
-    BL printf
-    MOV R7, #1
-    SWI #0           @Terminate, error condition
-_peanut:
-    MOV R3, #75      @Move 75 cents into R3
-    BAL _compute
-_choc:
-    MOV R3, #125     @Move 125 cents into R3
-    BAL _compute
-_pretzel:
-    MOV R3, #90      @Move 90 cents into R3
-_compute:
+
     LDR R4, =quantity @Get address of var quantity
     LDR R4, [R4]      @Value of quantity now in R4
     MUL R1, R3, R4    @Multiply number of cents times quantity
